@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reloj estilo Marcador Deportivo</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #clock {
+      display: flex;
+      gap: 25px;
+    }
+
+    .digit {
+      background-color: #000;
+      color: #fff;
+      font-size: 10em;
+      font-weight: bold;
+      border: 4px solid #fff;
+      border-radius: 12px;
+      width: 120px;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 25px #fff2;
+    }
+
+    .colon {
+      color: #fff;
+      font-size: 10em;
+      padding: 0 15px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="clock">
+    <!-- Los dígitos se insertan dinámicamente -->
+  </div>
+
+  <script>
+    function crearReloj() {
+      const clock = document.getElementById('clock');
+      clock.innerHTML = '';
+      for (let i = 0; i < 8; i++) {
+        if (i === 2 || i === 5) {
+          const colon = document.createElement('div');
+          colon.textContent = ':';
+          colon.className = 'colon';
+          clock.appendChild(colon);
+        } else {
+          const digit = document.createElement('div');
+          digit.className = 'digit';
+          digit.textContent = '0';
+          clock.appendChild(digit);
+        }
+      }
+    }
+
+    function actualizarReloj() {
+      const ahora = new Date();
+      const horas = String(ahora.getHours()).padStart(2, '0');
+      const minutos = String(ahora.getMinutes()).padStart(2, '0');
+      const segundos = String(ahora.getSeconds()).padStart(2, '0');
+
+      const tiempoCompleto = horas + minutos + segundos;
+      const digitos = document.querySelectorAll('.digit');
+
+      for (let i = 0; i < digitos.length; i++) {
+        digitos[i].textContent = tiempoCompleto[i];
+      }
+    }
+
+    crearReloj();
+    actualizarReloj();
+    setInterval(actualizarReloj, 1000);
+  </script>
+</body>
+</html>
